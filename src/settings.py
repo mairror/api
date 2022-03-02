@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     DATABASE_URL: str = os.getenv("DATABASE_URL", "mongodb://localhost:27017")
     SENTRY_DSN: str = os.getenv("SENTRY_DSN", "")
     VERSION: str = os.getenv("VERSION", "0.0.0")
-
+    API_KEY: str = os.getenv("API_KEY", "api_test")
     class Config:
         if os.path.exists(".env"):
             env_file = ".env"

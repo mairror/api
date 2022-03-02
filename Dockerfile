@@ -1,7 +1,7 @@
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
 
 # Maintainer of the Dockerfile
-LABEL maintainer="Alejandro Aceituna Cano - dev@aacecan.com"
+LABEL maintainer="Mairror Team"
 
 # Input data
 ARG NON_ROOT_USER=nroot
@@ -62,6 +62,7 @@ USER ${NON_ROOT_USER}
 
 # Install python libraries
 COPY requirements.txt /app
+
 RUN pip install --upgrade pip==21.3.1 --no-cache-dir && \
     pip install -r /app/requirements.txt --no-cache-dir
 
@@ -69,4 +70,4 @@ RUN pip install --upgrade pip==21.3.1 --no-cache-dir && \
 WORKDIR /app
 
 # Add local files as late as possible to avoid cache busting
-COPY ./ /app
+COPY src/ /app

@@ -1,8 +1,9 @@
 from config.settings import get_settings
 from database.mongo import get_database
 from docs.router_docs import post as post_responses
-from fastapi import Depends, File, Form, HTTPException, UploadFile, status
+from fastapi import Depends, File, Form, HTTPException, UploadFile, status, Security
 from fastapi.responses import JSONResponse
+from fastapi.security.api_key import APIKey, APIKeyHeader
 from models.images import PostImageResponseModel
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from routers.api_router import APIRouter, CustomApiRoute
@@ -14,6 +15,21 @@ router = APIRouter(
 )
 
 settings = get_settings()
+
+
+API_KEY_NAME = "access_token"
+api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=True)
+
+
+def get_api_key(api_key_header: str = Security(api_key_header)):
+    """
+    This function checks the header and his value for correct authentication if not a 403 error is returned:
+      - api_key_header = Security api header
+    """
+    if api_key_header == settings.API_KEY:
+        return api_key_header
+    else:
+        raise HTTPException(status_code=403, detail="Could not validate credentials.")
 
 
 @router.post(
@@ -31,6 +47,7 @@ async def create_upload_file(
         example={"file": "@image.jpg"},
     ),
     database: AsyncIOMotorDatabase = Depends(get_database),
+    api_key: APIKey = Depends(get_api_key),
 ) -> JSONResponse:
     """
     This route does:
