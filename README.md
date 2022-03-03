@@ -1,9 +1,20 @@
-# api
+# Mairror API
+
 The Mairror API
 
 ## Testing the image upload
 
+- Not authorized
+
+```bash
 curl -i -X POST -H "Content-Type: multipart/form-data" -F "file=@shakil.jpg" -F "source=streamlit" http://127.0.0.1:8000/images/upload
+```
+
+- Authorized
+
+```bash
+curl -i -X POST -H "Content-Type: multipart/form-data" -F "file=@shakil.jpg" -F "source=streamlit" http://127.0.0.1:8000/images/upload
+```
 
 ## Converting Anaconda environment to pip requirements
 

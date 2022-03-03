@@ -19,13 +19,7 @@ ENV APP_MODULE=main:app \
     WORKER_CLASS=uvicorn.workers.UvicornWorker \
     TIMEOUT=120 \
     KEEP_ALIVE=20 \
-    GRACEFUL_TIMEOUT=120 \
-    ACCESS_LOG= \
-    ERROR_LOG= \
-    #GUNICORN_CONF=/app/gunicorn_conf.py \
-    #GUNICORN_CMD_ARGS="--keyfile=/secrets/key.pem --certfile=/secrets/cert.pem" \
-    #PORT=443 \
-    PRE_START_PATH=/app/prestart.sh
+    GRACEFUL_TIMEOUT=120
 
 # Hadolint DL4006
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -70,4 +64,6 @@ RUN pip install --upgrade pip==21.3.1 --no-cache-dir && \
 WORKDIR /app
 
 # Add local files as late as possible to avoid cache busting
-COPY src/ /app
+COPY --chown=${NON_ROOT_USER}:${ID} src/ /app
+
+CMD ["python", "main.py"]

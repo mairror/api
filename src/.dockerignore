@@ -1,6 +1,0 @@
-.dockerignore
-Dockerfile
-.env
-.hadolint.yml
-**/**__pycache__/**
-tests/

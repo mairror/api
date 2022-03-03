@@ -7,7 +7,7 @@ class DocsSettings(BaseSettings):
     license_name: str = "MIT"
     license_url: str = "https://github.com/mairror/api/blob/main/LICENSE"
     logo_url: str = (
-        "https://raw.githubusercontent.com/mairror/api/main/docs/images/logo.png"
+        "https://raw.githubusercontent.com/mairror/api/main/docs/images/mairror.jpeg"
     )
     title: str = "Mairror API"
     version: str = "0.1.0"
@@ -16,7 +16,8 @@ class DocsSettings(BaseSettings):
     description: str = """
 # Mairror API
 
-This is an API that acts as a central point for managing all events that occur within the Mairror project.
+This is an API that acts as a central point for managing all events that occur within the Mairror
+project.
 
 ## What can be done with this API
 

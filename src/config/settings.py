@@ -22,10 +22,13 @@ class Settings(BaseSettings):
     DATABASE_URL: str = os.getenv("DATABASE_URL", "mongodb://localhost:27017")
     SENTRY_DSN: str = os.getenv("SENTRY_DSN", "")
     VERSION: str = os.getenv("VERSION", "0.0.0")
+    API_KEY_HEADER: str = os.getenv("API_KEY_HEADER", "X-Api-Key")
+    API_KEY: str = os.getenv("API_KEY", "test")
 
     class Config:
-        if os.path.exists(".env"):
-            env_file = ".env"
+        if os.path.exists("../../.env"):
+            env_file = "../../.env"
+            env_file_encoding = "utf-8"
 
 
 @lru_cache()

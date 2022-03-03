@@ -9,7 +9,8 @@ from fastapi.types import DecoratedCallable
 
 class APIRouter(FastAPIRouter):
     """
-    Decorates FastAPI's APIRouter.api_route method to add a trailing slash to the path. /upload/ -> /upload
+    Decorates FastAPI's APIRouter.api_route method to add a trailing slash to the
+    path. /upload/ -> /upload
     """
 
     def api_route(
@@ -35,7 +36,8 @@ class APIRouter(FastAPIRouter):
 class CustomApiRoute(APIRoute):
     """
     Decorates FastAPI APIRoute in the logs the execution time of any route that inherits
-    from this class. If an exception occurs, the Request instance will still be in scope,
+    from this class.
+    If an exception occurs, the Request instance will still be in scope,
     so we can read and make use of the request body when handling the error.
     """
 
