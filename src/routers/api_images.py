@@ -1,3 +1,4 @@
+from bson.binary import Binary
 from config.settings import get_settings
 from database.mongo import get_database
 from docs.router_docs import post as post_responses
@@ -17,6 +18,53 @@ router = APIRouter(
     tags=["images"],
     route_class=CustomApiRoute,
 )
+
+
+@router.post(
+    "/faces",
+    summary="Receives a mongo document and insert it.",
+    response_model=PostImageResponseModel,
+    response_description="Document created .",
+    responses=post_responses["create_faces_document"]["responses"],
+)
+async def create_faces_document(
+    files: list[UploadFile] = File(..., example={"files": ("file", ("xxx", "xxxx"))}),
+    key: str = Form(..., example={"key": "xxx"}),
+    api_key: APIKey = Depends(get_api_key),
+    database: AsyncIOMotorDatabase = Depends(get_database),
+) -> JSONResponse:
+    """
+    This route does:
+      - Receiving a dict that will be inserted in mongo as a document.
+    """
+
+    try:
+        if not api_key:
+            return JSONResponse(
+                status_code=status.HTTP_403_FORBIDDEN,
+                content={"detail": "Could not validate credentials."},
+            )
+        faces = []
+        for f in files:
+            file = f.file._file
+            faces.append(Binary(file.read(), subtype=128))
+        document = {"key": key, "faces": faces}
+        inserted = await database["faces"].insert_one(document)
+        if inserted.inserted_id is not None:
+            return JSONResponse(
+                status_code=status.HTTP_200_OK,
+                content=post_responses["create_faces_document"]["responses"][200],
+            )
+        else:
+            return JSONResponse(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                content=post_responses["create_faces_document"]["responses"][400],
+            )
+    except HTTPException as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail={"message": str(e)},
+        )
 
 
 @router.post(

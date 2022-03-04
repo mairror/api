@@ -1,3 +1,5 @@
+from typing import Any, Dict, Optional
+
 from pydantic import BaseModel
 
 
@@ -23,3 +25,8 @@ class PostResponseModel(BaseModel):
 
 class PostImageResponseModel(PostResponseModel):
     pass
+
+
+class PostFaceModel(PostModel):
+    key: str
+    faces: Optional[Dict[str, Any]]
