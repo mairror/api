@@ -1,3 +1,5 @@
+from typing import List
+
 from bson.binary import Binary
 from config.settings import get_settings
 from database.mongo import get_database
@@ -28,7 +30,7 @@ router = APIRouter(
     responses=post_responses["create_faces_document"]["responses"],
 )
 async def create_faces_document(
-    files: list[UploadFile] = File(..., example={"files": ("file", ("xxx", "xxxx"))}),
+    files: List[UploadFile] = File(..., example={"files": ("file", ("xxx", "xxxx"))}),
     key: str = Form(..., example={"key": "xxx"}),
     api_key: APIKey = Depends(get_api_key),
     database: AsyncIOMotorDatabase = Depends(get_database),
