@@ -26,8 +26,8 @@ class Settings(BaseSettings):
     API_KEY: str = os.getenv("API_KEY", "test")
 
     class Config:
-        if os.path.exists("../../.env"):
-            env_file = "../../.env"
+        if os.path.exists("../.env"):
+            env_file = "../.env"
             env_file_encoding = "utf-8"
 
 
