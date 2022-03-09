@@ -149,7 +149,7 @@ async def predict_image(
                 status_code=status.HTTP_403_FORBIDDEN,
                 content={"detail": "Could not validate credentials."},
             )
-        query = {"key": "raw/AQAD4LoxG29XQFFy_3330057.jpg"}
+        query = {"key": image_id.image_id}
         prediction = await database["predict"].find_one(
             query, {"_id": 0, "predictions": 1}
         )
