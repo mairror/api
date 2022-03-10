@@ -15,4 +15,12 @@ post = {
             },
         }
     },
+    "prediction": {
+        "responses": {
+            200: {"description": "The prediction was sent successfully."},
+            404: {
+                "description": "There was an error returning the prediction, check the API logs."
+            },
+        }
+    },
 }

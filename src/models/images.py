@@ -30,3 +30,11 @@ class PostImageResponseModel(PostResponseModel):
 class PostFaceModel(PostModel):
     key: str
     faces: Optional[Dict[str, Any]]
+
+
+class PostPredictionResponseModel(PostModel):
+    predictions: Any
+
+
+class PostModelImageInput(PostModel):
+    image_id: str
