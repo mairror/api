@@ -66,10 +66,6 @@ async def info() -> JSONResponse:
             "openapi_url": settings.OPENAPI_URL,
             "docs_url": settings.DOCS_URL,
             "redoc_url": settings.REDOC_URL,
-            "s3_bucket_raw_name": settings.S3_BUCKET_RAW_NAME,
-            "database_name": settings.DATABASE_NAME,
-            "database_url": settings.DATABASE_URL,
-            "sentry_dsn": settings.SENTRY_DSN,
             "version": settings.VERSION,
         },
     )
